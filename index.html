@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXIF example with inline EXIF info</title>
+</head>
+<body>
+
+    <img src="./pepsi.jpg" id="img1" />
+    <script type="text/javascript" src="exif.js"></script>
+    <script>
+        window.onload=getExif;
+        function getExif() {
+            var img3 = document.getElementById("img1");
+            EXIF.getData(img3, function() {
+                var allMetaData = EXIF.getAllTags(this);
+                console.log(JSON.stringify(allMetaData, null, "\t"));
+            });
+        }
+    </script>
+</body>
+</html>
