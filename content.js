@@ -1,43 +1,42 @@
 console.log("First line of content.js");
 window.onload = transformImages();
 
-var buttonStyle = "position: absolute;" +
-                  "width: 100px;" +
-                  "height: 30px;" +
-                  "background-color: green;" +
-                  "margin: 0;" +
-                  "padding: 0;" +
-                  "top: 0;" +
-                  "left: 0;" +
-                  "";
-
 function transformImages() {
   console.log('Start tranform images');
   var images = document.images;
   for (var i = 0; i < images.length; i++) {
+    console.log(images[i]);
     EXIF.getData(images[i], function() {
+        addModal();
         var font = document.createElement("link");
         font.setAttribute("href", "https://fonts.googleapis.com/css?family=Raleway");
         font.setAttribute("rel", "stylesheet");
+        var css = document.createElement("style");
+        css.innerHTML = ".overlay:hover .cart { visiblity: visible; transition: .2s; }";
         document.head.appendChild(font);
+        document.head.appendChild(css);
         if (EXIF.getTag(this, "URL TEST") != null) {
           console.log(EXIF.getTag(this, "URL TEST"));
           var overlay = document.createElement("div");
-          var button = getButton();
+          var purchase = getButton();
           this.parentNode.insertBefore(overlay, this);
-          overlay.setAttribute("width", this.getAttribute("width"));
-          overlay.setAttribute("height", this.getAttribute("height"));
-          overlay.setAttribute("style", "position: relative;");
-          overlay.addEventListener("mouseout", function(){
-            button.style.transition = ".2s";
-            document.getElementById("button").style.visibility = "hidden";
-          });
-          overlay.addEventListener("mouseover", function(){
-            button.style.transition = ".2s";
-            document.getElementById("button").style.visibility = "visible";
-          });
+          overlay.setAttribute("width", this.offsetWidth);
+          overlay.setAttribute("height", this.offsetHeight);
+          overlay.setAttribute("style", "position: relative; margin: 0; padding: 0");
+          overlay.setAttribute("class", "overlay");
           overlay.appendChild(this);
-          overlay.appendChild(button);
+          overlay.appendChild(purchase);
+          var button = document.getElementById('submit-button');
+          braintree.dropin.create({
+            authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
+            selector: '#dropin-container'
+          }, function (err, instance) {
+            button.addEventListener('click', function () {
+              instance.requestPaymentMethod(function (err, payload) {
+                // Submit payload.nonce to your server
+              });
+            })
+          });
         }
         var allMetaData = EXIF.getAllTags(this);
         console.log(allMetaData);
@@ -46,28 +45,35 @@ function transformImages() {
 }
 
 function getButton() {
-  var button = document.createElement("div");
-  button.style.position = "absolute";
-  button.style.width = "200px";
-  button.style.height = "60px";
-  button.style.border = "4px solid #232323";
-  button.style.backgroundColor = "rgba(35, 35, 35, 0.5)"
-  button.style.fontSize = "20px";
-  button.style.fontFamily = "'Raleway', sans-serif";
-  button.style.textAlign = "center";
-  button.style.color = "white";
-  button.style.margin = 0;
-  button.style.padding = 0;
-  button.style.top = 0;
-  button.style.left = 0;
-  button.style.visibility = "visible";
-  button.addEventListener("mouseover", function(){
-    button.style.cursor = "pointer";
-  })
-  button.addEventListener("mouseout", function(){
-    button.style.cursor = "inherit";
-  })
+  var container = document.createElement("label");
+  container.style.width = "24px";
+  container.style.height = "24px";
+  container.style.position = "absolute";
+  container.style.bottom = "4px";
+  container.style.right = "4px";
+  var link = document.createElement("a");
+  link.href="http://google.com";
+  var button = document.createElement("img");
+  button.src = "ic_shopping_cart_white_24dp_2x.png";
+  button.style.width = "24px";
+  button.style.height = "24px";
+  button.zIndex = "10";
+  container.setAttribute("for", "modal_1");
+  container.setAttribute("class", "cart button");
+  link.appendChild(button);
+  container.appendChild(button);
   button.id = "button";
-  button.innerHTML = "PURCHASE";
-  return button;
+  return container;
+}
+
+function addModal() {
+  var modal = document.createElement("div");
+  modal.setAttribute("class", "modal");
+  modal.innerHTML = '<div class="modal">' +
+    '<input id="modal_1" type="checkbox" />' +
+    '<label for="modal_1" class="overlay"></label>' +
+    '<button id="submit-button" class="button button--small button--green">Purchase</button>' +
+    '<div id="dropin-container"></div>' +
+    '</div>';
+  document.body.appendChild(modal);
 }

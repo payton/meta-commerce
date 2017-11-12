@@ -7,7 +7,8 @@
       "matches": [
         "<all_urls>"
       ],
-      "js": [ "exif.js", "content.js"]
+      "css": [ "picnic.min.css", "braintree.css" ],
+      "js": [ "dropin.js", "exif.js", "content.js"]
     }
   ],
   "browser_action": {
