@@ -5,7 +5,7 @@
   "content_scripts": [
     {
       "matches": [
-        "<all_urls>"
+        "file:///*.jpg"
       ],
       "css": [ "picnic.min.css", "braintree.css" ],
       "js": [ "dropin.js", "exif.js", "content.js"]

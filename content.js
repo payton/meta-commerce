@@ -47,16 +47,17 @@ function transformImages() {
 function getButton() {
   var container = document.createElement("label");
   container.style.width = "24px";
-  container.style.height = "24px";
+  container.style.height = "auto";
   container.style.position = "absolute";
+  container.style.margin = "0px";
   container.style.bottom = "4px";
-  container.style.right = "4px";
+  container.style.left = "4px";
   var link = document.createElement("a");
   link.href="http://google.com";
   var button = document.createElement("img");
-  button.src = "ic_shopping_cart_white_24dp_2x.png";
+  button.src = "../ic_shopping_cart_white_24dp_2x.png";
   button.style.width = "24px";
-  button.style.height = "24px";
+  button.style.height = "auto";
   button.zIndex = "10";
   container.setAttribute("for", "modal_1");
   container.setAttribute("class", "cart button");
@@ -72,8 +73,8 @@ function addModal() {
   modal.innerHTML = '<div class="modal">' +
     '<input id="modal_1" type="checkbox" />' +
     '<label for="modal_1" class="overlay"></label>' +
-    '<button id="submit-button" class="button button--small button--green">Purchase</button>' +
-    '<div id="dropin-container"></div>' +
+    '<article style="padding: 10px;">' +
+    '<div id="dropin-container"></div><button id="submit-button" class="button button--small button--green">Purchase</button></article>' +
     '</div>';
   document.body.appendChild(modal);
 }
