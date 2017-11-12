@@ -26,6 +26,14 @@ function transformImages() {
           overlay.setAttribute("class", "overlay");
           overlay.appendChild(this);
           overlay.appendChild(purchase);
+          overlay.addEventListener("mouseover", function(){
+            document.getElementById("cart").style.visibility = "visible";
+            document.getElementById("cart").style.opacity = "100";
+          })
+          overlay.addEventListener("mouseout", function(){
+            document.getElementById("cart").style.visibility = "hidden";
+            document.getElementById("cart").style.opacity = "0";
+          })
           var button = document.getElementById('submit-button');
           braintree.dropin.create({
             authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
@@ -46,12 +54,14 @@ function transformImages() {
 
 function getButton() {
   var container = document.createElement("label");
+  container.id = "cart";
   container.style.width = "24px";
   container.style.height = "auto";
   container.style.position = "absolute";
   container.style.margin = "0px";
   container.style.bottom = "4px";
   container.style.left = "4px";
+  container.style.transition = "all .2s linear";
   var link = document.createElement("a");
   link.href="http://google.com";
   var button = document.createElement("img");
@@ -63,6 +73,8 @@ function getButton() {
   container.setAttribute("class", "cart button");
   link.appendChild(button);
   container.appendChild(button);
+  container.style.visibility = "hidden";
+  container.style.opacity = "0";
   button.id = "button";
   return container;
 }
