@@ -16,7 +16,8 @@ function transformImages() {
         document.head.appendChild(font);
         document.head.appendChild(css);
         if (EXIF.getTag(this, "MetaCommerce") != null) {
-          console.log(JSON.parse(EXIF.getTag(this, "MetaCommerce")));
+          var json = JSON.parse(EXIF.getTag(this, "MetaCommerce"));
+          document.getElementById("description").innerHTML = "<p style='text-align: center;'><b>" + json.title + "</b><br>" + json.price + "</p>";
           var overlay = document.createElement("div");
           var purchase = getButton();
           this.parentNode.insertBefore(overlay, this);
@@ -85,7 +86,7 @@ function addModal() {
   modal.innerHTML = '<div class="modal">' +
     '<input id="modal_1" type="checkbox" />' +
     '<label for="modal_1" class="overlay"></label>' +
-    '<article style="padding: 10px;">' +
+    '<article style="padding: 10px;"><section id="description">$99.99</section>' +
     '<div id="dropin-container"></div><button id="submit-button" class="button button--small button--green">Purchase</button></article>' +
     '</div>';
   document.body.appendChild(modal);
