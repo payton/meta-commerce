@@ -7,11 +7,11 @@
       "matches": [
         "file:///*.jpg"
       ],
-      "css": [ "picnic.min.css", "braintree.css" ],
-      "js": [ "dropin.js", "exif.js", "content.js"]
+      "css": [ "css/picnic.min.css", "css/braintree.css" ],
+      "js": [ "js/dropin.js", "js/exif.js", "js/content.js"]
     }
   ],
   "browser_action": {
-    "default_icon": "icon.png"
+    "default_icon": "img/icon.png"
   }
 }
