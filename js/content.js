@@ -20,20 +20,20 @@ function transformImages() {
           var overlay = document.createElement("div");
           var purchase = getButton();
           this.parentNode.insertBefore(overlay, this);
-          overlay.setAttribute("width", this.offsetWidth);
-          overlay.setAttribute("height", this.offsetHeight);
+          overlay.setAttribute("width", this.width);
+          overlay.setAttribute("height", this.height);
           overlay.setAttribute("style", "position: relative; margin: 0; padding: 0");
           overlay.setAttribute("class", "overlay");
           overlay.appendChild(this);
           overlay.appendChild(purchase);
           overlay.addEventListener("mouseover", function(){
             document.getElementById("cart").style.visibility = "visible";
-            document.getElementById("cart").style.opacity = "100";
-          })
+            document.getElementById("cart").style.opacity = "1";
+          });
           overlay.addEventListener("mouseout", function(){
             document.getElementById("cart").style.visibility = "hidden";
             document.getElementById("cart").style.opacity = "0";
-          })
+          });
           var button = document.getElementById('submit-button');
           braintree.dropin.create({
             authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
@@ -55,12 +55,12 @@ function transformImages() {
 function getButton() {
   var container = document.createElement("label");
   container.id = "cart";
-  container.style.width = "24px";
-  container.style.height = "auto";
+  // container.style.width = "24px";
+  // container.style.height = "auto";
   container.style.position = "absolute";
-  container.style.margin = "0px";
-  container.style.bottom = "4px";
-  container.style.left = "4px";
+  container.style.margin = "1%";
+  container.style.bottom = "0";
+  container.style.left = "0";
   container.style.transition = "all .2s linear";
   var link = document.createElement("a");
   link.href="http://google.com";
@@ -68,7 +68,7 @@ function getButton() {
   button.src = "../img/ic_shopping_cart_white_24dp_2x.png";
   button.style.width = "24px";
   button.style.height = "auto";
-  button.zIndex = "10";
+  container.zIndex = "10";
   container.setAttribute("for", "modal_1");
   container.setAttribute("class", "cart button");
   link.appendChild(button);
