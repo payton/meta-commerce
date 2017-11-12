@@ -15,8 +15,8 @@ function transformImages() {
         css.innerHTML = ".overlay:hover .cart { visiblity: visible; transition: .2s; }";
         document.head.appendChild(font);
         document.head.appendChild(css);
-        if (EXIF.getTag(this, "URL TEST") != null) {
-          console.log(EXIF.getTag(this, "URL TEST"));
+        if (EXIF.getTag(this, "MetaCommerce") != null) {
+          console.log(JSON.parse(EXIF.getTag(this, "MetaCommerce")));
           var overlay = document.createElement("div");
           var purchase = getButton();
           this.parentNode.insertBefore(overlay, this);

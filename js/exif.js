@@ -20,7 +20,7 @@
     }
 
     var ExifTags = EXIF.Tags = {
-        0xFFFF : "URL TEST",
+        0xFFFF : "MetaCommerce",
 
         // version tags
         0x9000 : "ExifVersion",             // EXIF version
